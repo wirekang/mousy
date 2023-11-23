@@ -7,7 +7,7 @@ module.exports = {
         [
             "@semantic-release/exec",
             {
-                verifyConditionsCmd: "echo 'MOUSY_BUILD_VERSION=\"${nextRelease.version}\"' > build.env"
+                verifyReleaseCmd: "echo 'MOUSY_BUILD_VERSION=\"${nextRelease.version}\"' > build.env"
             }
         ],
         [

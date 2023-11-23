@@ -43,7 +43,6 @@ jobs:
           path: release-assets
       - uses: actions/setup-node@v3
         with:
-          cache: npm
           node-version: lts/*
       - run: npm install semantic-release @semantic-release/exec @semantic-release/github
       - run: npx semantic-release

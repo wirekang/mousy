@@ -6,16 +6,10 @@ source build.env || exit 1
 set +o allexport
 
 echo "MOUSY_BUILD_VERSION: $MOUSY_BUILD_VERSION"
-echo "MOUSY_BUILD_BRANCH: $MOUSY_BUILD_BRANCH"
 
-if [ -z "$1" ];then
+if [ -z "$MOUSY_BUILD_VERSION" ];then
   echo "---------- WARNING: build without version"
   export MOUSY_BUILD_VERSION="\"undefined\""
-fi
-
-if [ -z "$2" ];then
-  echo "---------- WARNING: build without branch"
-  export MOUSY_BUILD_BRANCH="\"undefined\""
 fi
 
 

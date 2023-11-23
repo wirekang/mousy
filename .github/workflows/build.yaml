@@ -1,0 +1,51 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        value: [ { os: windows-latest, ninja-platform: win, output-name: windows, output-path: build/mousy.exe }, { os: ubuntu-latest, ninja-platform: linux, output-name: linux, output-path: build/mousy } ]
+    runs-on: ${{ matrix.value.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wirekang/setup-ninja@v1
+        with:
+          platform: ${{ matrix.value.ninja-platform }}
+          tag: v1.11.1
+      - run: scripts/build.sh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.value.output-name }}
+          path: ${{ matrix.value.output-path }}
+
+  release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v3
+        with:
+          path: release-assets
+      - uses: actions/setup-node@v3
+        with:
+          cache: npm
+          node-version: lts/*
+      - run: npm install semantic-release @semantic-release/exec @semantic-release/github
+      - run: npx semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

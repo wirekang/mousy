@@ -3,6 +3,6 @@
 
 int main() {
     printf("Hello\n");
-    printf("version=%s branch=%s\n", build_constant::version, build_constant::branch);
+    printf("version=%s\n", build_constant::version);
     return 0;
 }

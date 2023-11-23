@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 cd "$(dirname "$( dirname "$(realpath "$0")" )")" || exit 1
 
-# Generate build.env
-npx semantic-release --dry-run --no-ci || exit 1
-
 set -o allexport
 source build.env || exit 1
 set +o allexport

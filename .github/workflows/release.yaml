@@ -36,7 +36,7 @@ jobs:
           platform: ${{ matrix.value.ninja-platform }}
           tag: v1.11.1
 
-      - name: Generate build.env
+      - name: Generate VERSION
         run: npx semantic-release --dry-run --no-ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

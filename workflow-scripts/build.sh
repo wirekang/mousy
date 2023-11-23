@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 cd "$(dirname "$( dirname "$(realpath "$0")" )")" || exit 1
 
-cat build.env || exit 1
-set -o allexport
-source build.env || exit 1
-set +o allexport
+export MOUSY_BUILD_VERSION="\"$(cat VERSION)\""
+echo "MOUSY_BUILD_VERSION=$MOUSY_BUILD_VERSION"
 
 if [ -z "$MOUSY_BUILD_VERSION" ];then
   echo "no MOUSY_BUILD_VERSION"

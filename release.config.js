@@ -13,7 +13,16 @@ module.exports = {
         [
             "@semantic-release/github",
             {
-                assets: ["release-assets/*"]
+                assets: [
+                    {
+                        path: "release-assets/linux/mousy",
+                        name: "mousy-linux-${nextRelease.version}"
+                    },
+                    {
+                        path: "release-assets/windows/mousy.exe",
+                        name: "mousy-windows-${nextRelease.version}.exe"
+                    }
+                ]
             }
         ],
 

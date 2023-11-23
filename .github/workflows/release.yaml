@@ -19,11 +19,20 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: npm
+          node-version: lts/*
+      - run: npm ci
+
       - uses: wirekang/setup-ninja@v1
         with:
           platform: ${{ matrix.value.ninja-platform }}
           tag: v1.11.1
-      - run: scripts/build.sh
+
+      - run: workflow-scripts/build.sh
+
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.value.output-name }}
@@ -44,8 +53,9 @@ jobs:
           path: release-assets
       - uses: actions/setup-node@v3
         with:
+          cache: npm
           node-version: lts/*
-      - run: npm install semantic-release @semantic-release/exec @semantic-release/github
+      - run: npm ci
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

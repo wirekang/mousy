@@ -5,16 +5,17 @@ module.exports = {
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
         [
+            "@semantic-release/exec",
+            {
+                verifyConditionsCmd: "echo 'MOUSY_BUILD_VERSION=\"${nextRelease.version}\"\nMOUSY_BUILD_BRANCH=\"${branch.name}\"' > build.env"
+            }
+        ],
+        [
             "@semantic-release/github",
             {
                 assets: ["release-assets/*"]
             }
         ],
-        [
-            "@semantic-release/exec",
-            {
-                prepareCmd: "./scripts/build.sh ${nextRelease.version} ${branch.name}"
-            }
-        ]
+
     ]
 }

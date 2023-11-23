@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
+cd "$(dirname "$( dirname "$(realpath "$0")" )")" || exit 1
 
-export MOUSY_BUILD_VERSION="\"$1\""
-export MOUSY_BUILD_BRANCH="\"$2\""
+# Generate build.env
+npx semantic-release --dry-run --no-ci || exit 1
+
+set -o allexport
+source build.env || exit 1
+set +o allexport
 
 echo "MOUSY_BUILD_VERSION: $MOUSY_BUILD_VERSION"
 echo "MOUSY_BUILD_BRANCH: $MOUSY_BUILD_BRANCH"
@@ -16,7 +21,6 @@ if [ -z "$2" ];then
   export MOUSY_BUILD_BRANCH="\"undefined\""
 fi
 
-cd "$(dirname "$( dirname "$(realpath "$0")" )")" || exit 1
 
 mkdir -p build || exit 1
 cd build || exit 1

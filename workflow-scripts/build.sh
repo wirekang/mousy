@@ -6,13 +6,10 @@ set -o allexport
 source build.env || exit 1
 set +o allexport
 
-echo "MOUSY_BUILD_VERSION: $MOUSY_BUILD_VERSION"
-
 if [ -z "$MOUSY_BUILD_VERSION" ];then
-  echo "---------- WARNING: build without version"
-  export MOUSY_BUILD_VERSION="\"undefined\""
+  echo "no MOUSY_BUILD_VERSION"
+  exit 1
 fi
-
 
 mkdir -p build || exit 1
 cd build || exit 1

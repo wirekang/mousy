@@ -1,6 +1,6 @@
 module.exports = {
     repositoryUrl: "https://github.com/wirekang/mousy",
-    branches: ["main", {name: "dev", prerelease: true}],
+    branches: ["stable", {name: "main", prerelease: true}],
     plugins: [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
